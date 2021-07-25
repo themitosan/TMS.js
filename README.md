@@ -1,5 +1,5 @@
 # TMS.js
-Created by <a href="https://themitosan.gihtub.io/">TheMitoSan</a>, this is a simple plugin for managing css and HTML stuff without jQuery.<br>
+Created by <a href="https://themitosan.gihtub.io/">TheMitoSan</a>, this is a simple plugin for managing css and HTML stuff <u>without jQuery</u>.<br>
 
 ## Setup
 It's simple!
