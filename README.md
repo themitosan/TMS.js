@@ -4,7 +4,7 @@ Created by <a href="https://themitosan.gihtub.io/">TheMitoSan</a>, this is a sim
 ## Setup
 It's simple!
 - Download TMS.js file
-- Include it on your HTML page as you are used to do! `<script type="text/javascript" src="YourPath/TMS.js"></script>`
+- Include it on your HTML page as you are used to do!<br>`<script type="text/javascript" src="YourPath/TMS.js"></script>`
 - Smile :D
 
 ## Available commands
