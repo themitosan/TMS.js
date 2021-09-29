@@ -38,7 +38,7 @@ tmsTemp['css'] = function(elementId, cssChanges){
 	};
 };
 /*
-	animate
+	Animate
 	
 	elementId     = HTML DOM id
 	cssChanges    = Object {width: x, height, y}
@@ -101,17 +101,26 @@ tmsTemp['focus'] = function(elementId, sTimeout){
 /*
 	Disable Element
 */
-tmsTemp['disableElement'] = function(elementId){
-	const elId = document.getElementById(elementId);
-	if (elId !== null){
-		elId.disabled = 'disabled';
-		// If is <input>
-		if (elId.type === 'button'){
-			TMS.css(elementId, {'filter': 'grayscale(1) blur(0.8px)', 'cursor': 'not-allowed', 'opacity': '0.6'});
-		};
+tmsTemp['disableElement'] = function(idList){
+	var disableList = [];
+	if (typeof idList === 'object'){
+		disableList = idList;
 	} else {
-		TMS.warn('TMS - Unable to disable element because it does not exist! (' + elementId + ')');
+		disableList.push(idList);
 	};
+	// End
+	disableList.forEach(function(cItem){
+		const elId = document.getElementById(cItem);
+		if (elId !== null){
+			elId.disabled = 'disabled';
+			// If is <input>
+			if (elId.type === 'button'){
+				TMS.css(cItem, {'filter': 'grayscale(1) blur(0.8px)', 'cursor': 'not-allowed', 'opacity': '0.6'});
+			};
+		} else {
+			TMS.warn('TMS - Unable to disable element because it does not exist! (' + cItem + ')');
+		};
+	});
 };
 /*
 	Enable Element
@@ -127,6 +136,20 @@ tmsTemp['enableElement'] = function(elementId){
 	} else {
 		TMS.warn('TMS - Unable to enable element because it does not exist! (' + elementId + ')');
 	};
+};
+/*
+	Get CSS data
+	Returns the attr value from CSS propriety
+*/
+tmsTemp['getCssData'] = function(elementId, cssAttrName){
+	var elId = document.getElementById(elementId),
+		result = '';
+	if (elId !== null){
+		result = elId.style[cssAttrName];
+	} else {
+		TMS.warn('TMS - Unable to get element because it does not exist! (' + elementId + ')');
+	};
+	return result;
 };
 /*
 	Scroll top
@@ -261,6 +284,17 @@ tmsTemp['scrollCenter'] = function(elementId){
 		parentDom.scrollTo(0, (elId.offsetTop - (parentHeight / 2)))
 	} else {
 		TMS.warn('TMS - Unable to fade out because DOM does not exist! (' + elementId + ')');
+	};
+};
+/*
+	setInnerHtml
+*/
+tmsTemp['setInnerHtml'] = function(elementId, htmlData){
+	const elId = document.getElementById(elementId);
+	if (elId !== null){
+		document.getElementById(elementId).innerHTML = htmlData;
+	} else {
+		TMS.warn('TMS - Unable to set innerHTML because DOM does not exist! (' + elementId + ')');
 	};
 };
 /*

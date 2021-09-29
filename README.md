@@ -2,12 +2,12 @@
 Created by <a href="https://themitosan.gihtub.io/">TheMitoSan</a>, this is a simple plugin for managing css and HTML stuff <u>without jQuery</u>.<br>
 
 ## Setup
-It's simple!
+It's deadly simple!
 - Download TMS.js file
 - Include it on your HTML page as you are used to do!<br>`<script type="text/javascript" src="YourPath/TMS.js"></script>`
-- Smile :D
+- Smile - you are a great person!
 
-## Available commands
+## Here is a preview of how to use some commands:
 
 ### TMS.css(domId, cssChanges)
 Example: ```TMS.css('myDiv', {'width': '1920px', height: '1080px'});```<br>
