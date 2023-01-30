@@ -1,8 +1,12 @@
 /*
-	TMS.js
-	Because I don't want to deal with jQuery anymore!
+	*******************************************************************************
+	TMS.js - By TemmieHeartz (@temmieheartz)
+	
+	This file is an original replacement - Because I don't want to deal with jQuery
+	anymore!
 
 	Original source / motivation: http://youmightnotneedjquery.com/
+	*******************************************************************************
 */
 tmsTemp = {};
 tmsTemp['logWarnings'] = false;
@@ -18,11 +22,16 @@ tmsTemp['warn'] = function(warnText){
 	CSS
 */
 tmsTemp['css'] = function(elementId, cssChanges){
-	var canStart = true, eReason = '';
-	const elId = document.getElementById(elementId);
+	var eReason = '',
+		canStart = !0,
+		elId = document.getElementById(elementId),
+		elTag = document.getElementsByTagName(elementId)[0];
+	if (elId === null){
+		elId = elTag;
+	};
 	if (elId === null){
 		canStart = false;
-		eReason = eReason + '\nDOM does not exist! (' + elementId + ')';
+		eReason = eReason + '\nDOM or Tag does not exist! (' + elementId + ')';
 	};
 	if (typeof cssChanges !== 'object'){
 		canStart = false;
@@ -51,23 +60,23 @@ tmsTemp['animate'] = function(elementId, cssChanges, animationTime, animationEas
 	if (elId === null){
 		canStart = false;
 		eReason = eReason + '\nDOM does not exist! (' + elementId + ')';
-	};
+	}
 	if (typeof cssChanges !== 'object'){
 		canStart = false;
 		eReason = eReason + '\nYou must insert an object for CSS data (Current type: ' + typeof cssChanges + ')';
-	};
+	}
 	if (typeof animationTime !== 'number'){
 		canStart = false;
 		eReason = eReason + '\nYou must insert a number on animation time (Current type: ' + typeof animationTime + ')';
-	};
+	}
 	// End
 	if (canStart === true){
 		if (animationEase === undefined){
 			animationEase = '';
-		};
+		}
 		if (animationTime < 0){
 			animationTime = 0;
-		};
+		}
 		Object.keys(cssChanges).forEach(function(cItem){
 			elId.style[cItem] = cssChanges[cItem];
 			transitionString = transitionString + cItem + ' ' + (animationTime / 1000) + 's ';
@@ -78,8 +87,8 @@ tmsTemp['animate'] = function(elementId, cssChanges, animationTime, animationEas
 		}, (animationTime + 1));
 	} else {
 		TMS.warn('TMS - Unable to animate!' + eReason);
-	};
-};
+	}
+}
 /*
 	Focus Element
 	sTimeout = time [ms]
@@ -280,10 +289,11 @@ tmsTemp['scrollCenter'] = function(elementId){
 	const elId = document.getElementById(elementId);
 	if (elId !== null){
 		var parentDom = elId.parentElement,
-			parentHeight = parentDom.offsetHeight;
-		parentDom.scrollTo(0, (elId.offsetTop - (parentHeight / 2)))
+			parentHeight = parentDom.offsetHeight,
+			elHeight = parseFloat(window.getComputedStyle(elId).height.replace('px', ''));
+		parentDom.scrollTo(0, (elId.offsetTop - ((parentHeight / 2) - (elHeight / 2))));
 	} else {
-		TMS.warn('TMS - Unable to fade out because DOM does not exist! (' + elementId + ')');
+		TMS.warn('TMS - Unable to scroll because DOM does not exist! (' + elementId + ')');
 	};
 };
 /*
@@ -301,4 +311,4 @@ tmsTemp['setInnerHtml'] = function(elementId, htmlData){
 	END
 */
 const TMS = tmsTemp;
-delete(tmsTemp);
+delete tmsTemp;
