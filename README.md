@@ -10,8 +10,7 @@ It's deadly simple!
 ## Here is a preview of how to use some commands:
 
 ### TMS.css(domId, cssChanges)
-Example: ```TMS.css('myDiv', {'width': '1920px', height: '1080px'});```<br>
-<i>For now, it works only with id.</i>
+Example: ```TMS.css('myDiv', {'width': '1920px', height: '1080px'});```
 
 ### TMS.animate(domId, cssChanges, duration, transition)
 Example: ```TMS.animate('myDiv', {'width': '100px', 'height': '100px'}, 1200, 'cubic-bezier(0, 1.06, 0, 1.02)');```
