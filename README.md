@@ -1,3 +1,7 @@
+<p align="left">
+<img src="https://raw.githubusercontent.com/temmieheartz/TMS.js/main/tmsjs.png" width="100">
+</p>
+
 # TMS.js
 Created by <a href="https://temmieheartz.github.io/">TemmieHeartz</a>, this is a simple plugin for managing css and HTML stuff <u>without jQuery</u>.<br>
 
