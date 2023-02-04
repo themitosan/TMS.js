@@ -182,7 +182,11 @@ tmsTemp['scrollTop'] = function(elementObjects){
 	Append data
 */
 tmsTemp['append'] = function(elementId, newData){
-	const elId = document.getElementById(elementId);
+	var elId = document.getElementById(elementId),
+		elTag = document.getElementsByTagName(elementId)[0];
+	if (elId === null){
+		elId = elTag;
+	}
 	if (elId !== null){
 		var pHTML = elId.innerHTML;
 		elId.innerHTML = pHTML + newData;
