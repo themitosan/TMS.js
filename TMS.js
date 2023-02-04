@@ -24,16 +24,25 @@ tmsTemp['warn'] = function(warnText){
 }
 
 /*
+	Get element
+*/
+tmsTemp['getElement'] = function(elementId){
+	var res = document.getElementById(elementId);
+	if (res === null){
+		res = document.getElementsByTagName(elementId)[0];
+	}
+	if (res === void 0){
+		res = null;
+	}
+	return res;
+}
+/*
 	CSS
 */
 tmsTemp['css'] = function(elementId, cssChanges){
 	var eReason = '',
 		canStart = !0,
-		elId = document.getElementById(elementId),
-		elTag = document.getElementsByTagName(elementId)[0];
-	if (elId === null){
-		elId = elTag;
-	}
+		elId = TMS.getElement(elementId);
 	if (elId === null){
 		canStart = !1;
 		eReason = eReason + '\nDOM or Tag does not exist! (' + elementId + ')';
@@ -61,7 +70,7 @@ tmsTemp['css'] = function(elementId, cssChanges){
 */
 tmsTemp['animate'] = function(elementId, cssChanges, animationTime, animationEase){
 	var canStart = !0, eReason = transitionString = '';
-	const elId = document.getElementById(elementId);
+	const elId = TMS.getElement(elementId);
 	if (elId === null){
 		canStart = !1;
 		eReason = eReason + '\nDOM does not exist! (' + elementId + ')';
@@ -99,7 +108,7 @@ tmsTemp['animate'] = function(elementId, cssChanges, animationTime, animationEas
 	sTimeout = time [ms]
 */
 tmsTemp['focus'] = function(elementId, sTimeout){
-	const elId = document.getElementById(elementId);
+	const elId = TMS.getElement(elementId);
 	if (elId !== null){
 		if (sTimeout !== void 0 && parseInt(sTimeout) !== NaN){
 			setTimeout(function(){
@@ -124,7 +133,7 @@ tmsTemp['disableElement'] = function(idList){
 	}
 	// End
 	disableList.forEach(function(cItem){
-		const elId = document.getElementById(cItem);
+		const elId = TMS.getElement(elementId);
 		if (elId !== null){
 			elId.disabled = 'disabled';
 			// If is <input>
@@ -140,7 +149,7 @@ tmsTemp['disableElement'] = function(idList){
 	Enable Element
 */
 tmsTemp['enableElement'] = function(elementId){
-	const elId = document.getElementById(elementId);
+	const elId = TMS.getElement(elementId);
 	if (elId !== null){
 		elId.disabled = '';
 		if (elId.type === 'button'){
@@ -155,7 +164,7 @@ tmsTemp['enableElement'] = function(elementId){
 	Returns the attr value from CSS propriety
 */
 tmsTemp['getCssData'] = function(elementId, cssAttrName){
-	var elId = document.getElementById(elementId),
+	var elId = TMS.getElement(elementId),
 		result = '';
 	if (elId !== null){
 		result = elId.style[cssAttrName];
@@ -170,7 +179,7 @@ tmsTemp['getCssData'] = function(elementId, cssAttrName){
 */
 tmsTemp['scrollTop'] = function(elementObjects){
 	Object.keys(elementObjects).forEach(function(cItem){
-		const elId = document.getElementById(cItem);
+		const elId = TMS.getElement(elementId);
 		if (elId !== null){
 			elId.scrollTop = elementObjects[cItem];
 		} else {
@@ -182,14 +191,9 @@ tmsTemp['scrollTop'] = function(elementObjects){
 	Append data
 */
 tmsTemp['append'] = function(elementId, newData){
-	var elId = document.getElementById(elementId),
-		elTag = document.getElementsByTagName(elementId)[0];
-	if (elId === null){
-		elId = elTag;
-	}
+	var elId = TMS.getElement(elementId);
 	if (elId !== null){
-		var pHTML = elId.innerHTML;
-		elId.innerHTML = pHTML + newData;
+		elId.insertAdjacentHTML('beforeend', newData);
 	} else {
 		TMS.warn('TMS - Unable to append element data because parent DOM does not exist! (' + elementId + ')');
 	}
@@ -198,7 +202,7 @@ tmsTemp['append'] = function(elementId, newData){
 	Add Class
 */
 tmsTemp['addClass'] = function(elementId, className){
-	const elId = document.getElementById(elementId);
+	const elId = TMS.getElement(elementId);
 	if (elId !== null){
 		elId.classList.add(className);
 	} else {
@@ -209,7 +213,7 @@ tmsTemp['addClass'] = function(elementId, className){
 	Add Class
 */
 tmsTemp['removeClass'] = function(elementId, className){
-	const elId = document.getElementById(elementId);
+	const elId = TMS.getElement(elementId);
 	if (elId !== null){
 		elId.classList.remove(className);
 	} else {
@@ -221,7 +225,7 @@ tmsTemp['removeClass'] = function(elementId, className){
 	Removes all HTML inside
 */
 tmsTemp['clear'] = function(elementId){
-	const elId = document.getElementById(elementId);
+	const elId = TMS.getElement(elementId);
 	if (elId !== null){
 		elId.innerHTML = '';
 	} else {
@@ -232,7 +236,7 @@ tmsTemp['clear'] = function(elementId){
 	triggerClick
 */
 tmsTemp['triggerClick'] = function(elementId){
-	const elId = document.getElementById(elementId);
+	const elId = TMS.getElement(elementId);
 	if (elId !== null){
 		elId.click();
 	} else {
@@ -243,24 +247,25 @@ tmsTemp['triggerClick'] = function(elementId){
 	fadeIn
 */
 tmsTemp['fadeIn'] = function(elementId, animationTime){
-	const elId = document.getElementById(elementId), tagType = {
+	const elId = TMS.getElement(elementId), 
+		tagType = {
 		'DIV': 'block',
 		'IMG': 'inline'
-	};
+	}
 	if (elId !== null){
 		var dTime = 1000, dMode = 'block', finalOpacity = 1, eStyles = getComputedStyle(elId);
 		if (animationTime !== void 0 && animationTime !== NaN){
 			dTime = parseInt(animationTime);
 			if (dTime < 0){
 				dTime = 1;
-			};
-		};
+			}
+		}
 		if (tagType[elId.tagType] !== void 0){
 			dMode = tagType[elId.tagType];
-		};
+		}
 		if (eStyles.opacity !== ''){
 			finalOpacity = eStyles.opacity;
-		};
+		}
 		TMS.css(elementId, {'display': dMode, 'opacity': finalOpacity, 'transition': 'opacity ' + dTime + 'ms'});
 		setTimeout(function(){
 			TMS.css(elementId, {'transition': 'none'});
@@ -273,7 +278,7 @@ tmsTemp['fadeIn'] = function(elementId, animationTime){
 	fadeOut
 */
 tmsTemp['fadeOut'] = function(elementId, animationTime){
-	const elId = document.getElementById(elementId);
+	const elId = TMS.getElement(elementId);
 	if (elId !== null){
 		var dTime = 1000;
 		if (animationTime !== void 0 && animationTime !== NaN){
@@ -294,7 +299,7 @@ tmsTemp['fadeOut'] = function(elementId, animationTime){
 	scrollCenter
 */
 tmsTemp['scrollCenter'] = function(elementId){
-	const elId = document.getElementById(elementId);
+	const elId = TMS.getElement(elementId);
 	if (elId !== null){
 		var parentDom = elId.parentElement,
 			parentHeight = parentDom.offsetHeight,
@@ -326,7 +331,18 @@ tmsTemp['removeDOM'] = function(elementId){
 		TMS.warn('TMS - Unable to remove DOM because DOM does not exist! (' + elementId + ')');
 	}
 }
-
+/*
+	On document loaded
+*/
+tmsTemp['onReady'] = function(callback){
+	if (callback !== void 0){
+		if (document.readyState !== 'loading'){
+			callback();
+		} else {
+			document.addEventListener('DOMContentLoaded', callback);
+		}
+	}
+}
 /*
 	END
 */
