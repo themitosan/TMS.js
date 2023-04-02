@@ -62,7 +62,7 @@ tmsTemp['css'] = function(elementId, cssChanges){
 }
 /*
 	Animate
-	
+
 	elementId     = HTML DOM id
 	cssChanges    = Object {width: x, height, y}
 	animationTime = Number (Min: 0)
@@ -164,10 +164,18 @@ tmsTemp['enableElement'] = function(elementId){
 	Returns the attr value from CSS propriety
 */
 tmsTemp['getCssData'] = function(elementId, cssAttrName){
-	var elId = TMS.getElement(elementId),
-		result = '';
+	var result = '',
+		elId = TMS.getElement(elementId);
 	if (elId !== null){
 		result = elId.style[cssAttrName];
+		// Get computed style
+		if (result === ''){
+			result = window.getComputedStyle(elId)[cssAttrName];
+		}
+		// Get from DOM
+		if (result === void 0){
+			result = elId[cssAttrName];
+		}
 	} else {
 		TMS.warn('TMS - Unable to get element because it does not exist! (' + elementId + ')');
 	}
@@ -298,13 +306,18 @@ tmsTemp['fadeOut'] = function(elementId, animationTime){
 /*
 	scrollCenter
 */
-tmsTemp['scrollCenter'] = function(elementId){
+tmsTemp['scrollCenter'] = function(elementId, delay){
 	const elId = TMS.getElement(elementId);
 	if (elId !== null){
 		var parentDom = elId.parentElement,
 			parentHeight = parentDom.offsetHeight,
 			elHeight = parseFloat(window.getComputedStyle(elId).height.replace('px', ''));
-		parentDom.scrollTo(0, (elId.offsetTop - ((parentHeight / 2) - (elHeight / 2))));
+		if (delay === void 0){
+			delay = 0;
+		}
+		setTimeout(function(){
+			parentDom.scrollTo(0, (elId.offsetTop - ((parentHeight / 2) - (elHeight / 2))));
+		}, delay);
 	} else {
 		TMS.warn('TMS - Unable to scroll because DOM does not exist! (' + elementId + ')');
 	}
@@ -313,7 +326,7 @@ tmsTemp['scrollCenter'] = function(elementId){
 	setInnerHtml
 */
 tmsTemp['setInnerHtml'] = function(elementId, htmlData){
-	const elId = document.getElementById(elementId);
+	const elId = TMS.getElement(elementId);
 	if (elId !== null){
 		document.getElementById(elementId).innerHTML = htmlData;
 	} else {
@@ -324,7 +337,7 @@ tmsTemp['setInnerHtml'] = function(elementId, htmlData){
 	Remove HTML DOM
 */
 tmsTemp['removeDOM'] = function(elementId){
-	const elId = document.getElementById(elementId);
+	const elId = TMS.getElement(elementId);
 	if (elId !== null){
 		document.getElementById(elementId).remove();
 	} else {
@@ -344,7 +357,46 @@ tmsTemp['onReady'] = function(callback){
 	}
 }
 /*
+	Blur element
+*/
+tmsTemp['blur'] = function(elementId){
+	const elId = TMS.getElement(elementId);
+	if (elId !== null){
+		document.getElementById(elementId).blur();
+	} else {
+		TMS.warn('TMS - Unable to blur DOM because DOM does not exist! (' + elementId + ')');
+	}
+}
+/*
+	Get HTML child count
+*/
+tmsTemp['getChildCount'] = function(elementId){
+	var res = 0,
+		elId = TMS.getElement(elementId);
+	if (elId !== null){
+		res = document.getElementById(elementId).childElementCount;
+		if (res < 0){
+			res = 0;
+		}
+		return res;
+	} else {
+		TMS.warn('TMS - Unable to get html collection because DOM does not exist! (' + elementId + ')');
+	}
+}
+/*
+	Get HTML element rect
+*/
+tmsTemp['getRect'] = function(elementId){
+	var elId = TMS.getElement(elementId);
+	if (elId !== null){
+		return document.getElementById(elementId).getBoundingClientRect();
+	} else {
+		TMS.warn('TMS - Unable to get rect because DOM does not exist! (' + elementId + ')');
+	}
+}
+/*
 	END
 */
 const TMS = tmsTemp;
+Object.seal(Object.freeze(TMS));
 delete tmsTemp;

@@ -1,9 +1,9 @@
-<p align="left">
-<img src="https://raw.githubusercontent.com/temmieheartz/TMS.js/main/tmsjs.png" width="100">
-</p>
+<h1 align="center">
+	<img src="https://raw.githubusercontent.com/temmieheartz/TMS.js/main/tmsjs.png" width="120">
+	<br><b>TMS.js</b>
+</h1>
 
-# TMS.js
-Created by <a href="https://temmieheartz.github.io/">TemmieHeartz</a>, this is a simple plugin for managing css and HTML stuff <u>without jQuery</u>.<br>
+Created by [TemmieHeartz](https://temmieheartz.github.io/), this is a simple plugin for managing css and HTML stuff _without jQuery_.
 
 ## Setup
 It's deadly simple!
@@ -61,4 +61,4 @@ This will focus a specific element based on parents height.
 Example: ```TMS.scrollCenter('betrayDiv');```
 
 ## Many Thanks To:
-- You might not need jQuery: <a target="_blank" href="http://youmightnotneedjquery.com/">http://youmightnotneedjquery.com/</a>
+- [You might not need jQuery](http://youmightnotneedjquery.com/)
