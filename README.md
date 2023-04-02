@@ -3,7 +3,7 @@
 	<br><b>TMS.js</b>
 </h1>
 
-Created by [TemmieHeartz](https://temmieheartz.github.io/), this is a simple plugin for managing css and HTML stuff _without jQuery_.
+Created by [TemmieHeartz](https://temmieheartz.github.io/), this is a simple plugin for managing css and HTML stuff ___without jQuery___.
 
 ## Setup
 It's deadly simple!
