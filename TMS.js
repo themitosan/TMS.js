@@ -247,12 +247,12 @@ const TMS = Object.freeze(Object.seal({
 		Usage: elementObjects = {HTML_DOM_ID_0: scrollInt, HTML_DOM_ID_1: scrollInt2} and goes on
 	*/
 	scrollTop: function(elementObjects){
-		Object.keys(elementObjects).forEach(function(cItem){
+		Object.keys(elementObjects).forEach(function(elementId){
 
 			const elId = TMS.getElement(elementId);
 
 			if (elId !== null){
-				elId.scrollTop = elementObjects[cItem];
+				elId.scrollTop = elementObjects[elementId];
 			} else {
 				TMS.warn('Unable to scroll element because it does not exist! (' + elementId + ')');
 			}
