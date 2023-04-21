@@ -1,6 +1,8 @@
 <h1 align="center">
 	<img src="https://raw.githubusercontent.com/temmieheartz/TMS.js/main/tmsjs.png" width="120">
-	<br><b>TMS.js</b>
+	<br><b>TMS.js</b><br>
+	<img src="https://img.shields.io/github/license/temmieheartz/TMS.js" alt="license">
+	<img src="https://img.shields.io/github/actions/workflow/status/temmieheartz/TMS.js/main.yaml" alt="build_status">
 </h1>
 
 Created by [TemmieHeartz](https://temmieheartz.github.io/), this is a simple plugin for managing css and HTML stuff ___without jQuery___.
@@ -59,6 +61,9 @@ Example: ```TMS.fadeOut('mySassyDiv', 600);```
 ### TMS.scrollCenter(domId)
 This will focus a specific element based on parents height.
 Example: ```TMS.scrollCenter('betrayDiv');```
+
+## External scripts / plugins used on this project:
+- [uglify-js](https://www.npmjs.com/package/uglify-js)
 
 ## Many Thanks To:
 - [You might not need jQuery](http://youmightnotneedjquery.com/)
