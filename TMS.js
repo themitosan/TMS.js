@@ -1,12 +1,14 @@
 /*
 	**************************************************************************************
 
-		TMS.js - By TemmieHeartz (@temmieheartz)
+		TMS.js
+		Created by TemmieHeartz (@temmieheartz)
+		https://github.com/temmieheartz/TMS.js
 
-		This file is an original replacement - Because I don't want to deal with jQuery
-		anymore!
+		This file exists because I don't want to deal with jQuery anymore!
 
-		Original source / motivation: http://youmightnotneedjquery.com/
+		Original source / motivation:
+		http://youmightnotneedjquery.com/
 
 	**************************************************************************************
 */
@@ -353,14 +355,19 @@ const TMS = Object.freeze(Object.seal({
 					dTime = 1;
 				}
 			}
+
 			if (tagType[elId.tagType] !== void 0){
 				dMode = tagType[elId.tagType];
 			}
-			if (eStyles.opacity !== ''){
+			if (eStyles.opacity !== '' && parseFloat(eStyles.opacity) !== 0){
 				finalOpacity = eStyles.opacity;
 			}
 
-			TMS.css(elementId, {'display': dMode, 'opacity': finalOpacity, 'transition': 'opacity ' + dTime + 'ms'});
+			TMS.css(elementId, {'display': dMode, 'opacity': 0});
+
+			setTimeout(function(){
+				TMS.css(elementId, {'opacity': finalOpacity, 'transition': 'opacity ' + dTime + 'ms linear 0ms'});
+			}, 10);
 
 			setTimeout(function(){
 				TMS.css(elementId, {'transition': 'none'});
