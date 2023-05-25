@@ -7,8 +7,7 @@
     "homepage": "https://github.com/temmieheartz/TMS.js",
     "description": "This is a simple plugin for managing css and HTML suff without jQuery",
     "scripts": {
-        "build": "node compile.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "build": "node compile.js"
     },
     "keywords": [
         "js",

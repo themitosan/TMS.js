@@ -440,10 +440,10 @@ const TMS = Object.freeze(Object.seal({
 	*/
 	setInnerHtml: function(elementId, htmlData){
 		const elId = TMS.getElement(elementId);
-		if (elId !== null){
+		if (elId !== null && elId.innerHTML !== htmlData){
 			document.getElementById(elementId).innerHTML = htmlData;
 		} else {
-			TMS.warn('Unable to set innerHTML because DOM does not exist! (' + elementId + ')');
+			TMS.warn('Unable to set innerHTML because DOM does not exist or it contains the same innerHTML data (' + elementId + ')');
 		}
 	},
 
@@ -451,9 +451,7 @@ const TMS = Object.freeze(Object.seal({
 		Remove HTML DOM
 	*/
 	removeDOM: function(elementId){
-
 		const elId = TMS.getElement(elementId);
-
 		if (elId !== null){
 			document.getElementById(elementId).remove();
 		} else {
@@ -500,16 +498,34 @@ const TMS = Object.freeze(Object.seal({
 	/*
 		Get HTML element rect
 	*/
-	getRect: function(elementId){
+	getRect: function(elementId, useCustomMode){
 
-		var elId = TMS.getElement(elementId);
+		var res,
+			elId = TMS.getElement(elementId);
 
 		if (elId !== null){
-			return document.getElementById(elementId).getBoundingClientRect();
+			res = document.getElementById(elementId).getBoundingClientRect();
+
+			if (useCustomMode === !0){
+				res = {
+					top: parseFloat(TMS.getCssData(elementId, 'top').replace('px', '')),
+					left: parseFloat(TMS.getCssData(elementId, 'left').replace('px', '')),
+					right: parseFloat(TMS.getCssData(elementId, 'right').replace('px', '')),
+					width: parseFloat(TMS.getCssData(elementId, 'width').replace('px', '')),
+					height: parseFloat(TMS.getCssData(elementId, 'height').replace('px', '')),
+					bottom: parseFloat(TMS.getCssData(elementId, 'bottom').replace('px', ''))
+				}
+			}
+
 		} else {
 			TMS.warn('Unable to get rect because DOM does not exist! (' + elementId + ')');
 		}
 
+		return res;
+
 	}
 	
 }));
+
+// Export
+exports = TMS;
