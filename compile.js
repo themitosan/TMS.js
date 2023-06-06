@@ -28,7 +28,5 @@ try {
 	fs.writeFileSync('./Compile/TMS.min.js', final, 'utf8');
 
 } catch (err) {
-
 	throw new Error(err);
-
 }

@@ -2,8 +2,8 @@
 	**************************************************************************************
 
 		TMS.js
-		Created by TemmieHeartz (@themitosan)
-		https://github.com/themitosan/TMS.js
+		Created by TemmieHeartz (@temmieheartz)
+		https://github.com/temmieheartz/TMS.js
 
 		This file exists because I don't want to deal with jQuery anymore!
 
