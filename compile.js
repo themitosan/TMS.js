@@ -18,7 +18,7 @@ try {
 		uglifyJs = require('uglify-js'),
 		baseFile = fs.readFileSync('./TMS.js', 'utf8'),
 		mFile = uglifyJs.minify(baseFile).code,
-		final = baseFile.slice(0, (baseFile.indexOf('*/') + 2)) + '\n' + mFile;
+		final = `${baseFile.slice(0, (baseFile.indexOf('*/') + 2))}\n${mFile}`;
 
 	if (fs.existsSync('./Compile') === !1){
 		fs.mkdirSync('./Compile');
