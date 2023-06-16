@@ -21,7 +21,7 @@ const TMS = Object.freeze(Object.seal({
 	// Warn if something go wrong
 	warn: function(warnText){
 		if (this.logWarnings === !0){
-			console.warn('[TMS] ' + warnText);
+			console.warn(`[TMS] ${warnText}`);
 		}
 	},
 
@@ -33,19 +33,14 @@ const TMS = Object.freeze(Object.seal({
 		Get element
 	*/
 	getElement: function(elementId){
-
 		var res = document.getElementById(elementId);
-
 		if (res === null){
 			res = document.getElementsByTagName(elementId)[0];
 		}
-
 		if (res === void 0){
 			res = null;
 		}
-
 		return res;
-
 	},
 
 	/*
@@ -53,17 +48,17 @@ const TMS = Object.freeze(Object.seal({
 	*/
 	css: function(elementId, cssChanges){
 
-		var eReason = '',
+		var eReason = [],
 			canStart = !0,
 			elId = TMS.getElement(elementId);
 
 		if (elId === null){
 			canStart = !1;
-			eReason = eReason + '\nDOM or Tag does not exist! (' + elementId + ')';
+			eReason.push(`DOM or Tag does not exist! (${elementId})`);
 		}
 		if (typeof cssChanges !== 'object'){
 			canStart = !1;
-			eReason = eReason + '\nYou must insert an object for CSS data (Current type: ' + typeof cssChanges + ')';
+			eReason.push(`You must insert an object for CSS data (Current type: ${typeof cssChanges})`);
 		}
 
 		// End
@@ -74,7 +69,7 @@ const TMS = Object.freeze(Object.seal({
 			});
 
 		} else {
-			TMS.warn('Unable to apply CSS data!' + eReason);
+			TMS.warn(`Unable to apply CSS data!\n${eReason.toString().replace(RegExp(',', 'gi'), '\n')}`);
 		}
 
 	},
@@ -89,22 +84,22 @@ const TMS = Object.freeze(Object.seal({
 	*/
 	animate: function(elementId, cssChanges, animationTime, animationEase){
 
-		var eReason = '',
+		var eReason = [],
 			canStart = !0,
 			transitionString = '';
 			elId = TMS.getElement(elementId);
 		
 		if (elId === null){
 			canStart = !1;
-			eReason = eReason + '\nDOM does not exist! (' + elementId + ')';
+			eReason.push(`\nDOM does not exist! (${elementId})`);
 		}
 		if (typeof cssChanges !== 'object'){
 			canStart = !1;
-			eReason = eReason + '\nYou must insert an object for CSS data (Current type: ' + typeof cssChanges + ')';
+			eReason.push(`\nYou must insert an object for CSS data (Current type: ${typeof cssChanges})`);
 		}
 		if (typeof animationTime !== 'number'){
 			canStart = !1;
-			eReason = eReason + '\nYou must insert a number on animation time (Current type: ' + typeof animationTime + ')';
+			eReason.push(`\nYou must insert a number on animation time (Current type: ${typeof animationTime})`);
 		}
 		
 		// End
@@ -119,7 +114,7 @@ const TMS = Object.freeze(Object.seal({
 
 			Object.keys(cssChanges).forEach(function(cItem){
 				elId.style[cItem] = cssChanges[cItem];
-				transitionString = transitionString + cItem + ' ' + (animationTime / 1000) + 's ';
+				transitionString = `${transitionString}${cItem} ${(animationTime / 1000)}s `;
 				elId.style['transition'] = transitionString + animationEase;
 			});
 
@@ -128,7 +123,7 @@ const TMS = Object.freeze(Object.seal({
 			}, (animationTime + 1));
 
 		} else {
-			TMS.warn('Unable to animate!' + eReason);
+			TMS.warn(`Unable to animate!\n${eReason.toString().replace(RegExp(',', 'gi'), '\n')}`);
 		}
 	},
 
@@ -153,7 +148,7 @@ const TMS = Object.freeze(Object.seal({
 			}
 
 		} else {
-			TMS.warn('Unable to focus element because it does not exist! (' + elementId + ')');
+			TMS.warn(`Unable to focus element because it does not exist! (${elementId})`);
 		}
 	},
 
@@ -186,7 +181,7 @@ const TMS = Object.freeze(Object.seal({
 				}
 
 			} else {
-				TMS.warn('Unable to disable element because it does not exist! (' + cItem + ')');
+				TMS.warn(`Unable to disable element because it does not exist! (${cItem})`);
 			}
 
 		});
@@ -210,7 +205,7 @@ const TMS = Object.freeze(Object.seal({
 			}
 
 		} else {
-			TMS.warn('TMS - Unable to enable element because it does not exist! (' + elementId + ')');
+			TMS.warn(`Unable to enable element because it does not exist! (${elementId})`);
 		}
 	},
 
@@ -238,7 +233,7 @@ const TMS = Object.freeze(Object.seal({
 			}
 
 		} else {
-			TMS.warn('Unable to get element because it does not exist! (' + elementId + ')');
+			TMS.warn(`Unable to get element because it does not exist! (${elementId})`);
 		}
 
 		return result;
@@ -256,7 +251,7 @@ const TMS = Object.freeze(Object.seal({
 			if (elId !== null){
 				elId.scrollTop = elementObjects[elementId];
 			} else {
-				TMS.warn('Unable to scroll element because it does not exist! (' + elementId + ')');
+				TMS.warn(`Unable to scroll element because it does not exist! (${elementId})`);
 			}
 
 		});
@@ -272,7 +267,7 @@ const TMS = Object.freeze(Object.seal({
 		if (elId !== null){
 			elId.insertAdjacentHTML('beforeend', newData);
 		} else {
-			TMS.warn('Unable to append element data because parent DOM does not exist! (' + elementId + ')');
+			TMS.warn(`Unable to append element data because parent DOM does not exist! (${elementId})`);
 		}
 
 	},
@@ -287,7 +282,7 @@ const TMS = Object.freeze(Object.seal({
 		if (elId !== null){
 			elId.classList.add(className);
 		} else {
-			TMS.warn('Unable to add class because DOM does not exist! (' + elementId + ')');
+			TMS.warn(`Unable to add class because DOM does not exist! (${elementId})`);
 		}
 	},
 
@@ -301,7 +296,7 @@ const TMS = Object.freeze(Object.seal({
 		if (elId !== null){
 			elId.classList.remove(className);
 		} else {
-			TMS.warn('Unable to remove class because DOM does not exist! (' + elementId + ')');
+			TMS.warn(`Unable to remove class because DOM does not exist! (${elementId})`);
 		}
 
 	},
@@ -315,7 +310,7 @@ const TMS = Object.freeze(Object.seal({
 		if (elId !== null){
 			elId.innerHTML = '';
 		} else {
-			TMS.warn('Unable to clear inner data because DOM does not exist! (' + elementId + ')');
+			TMS.warn(`Unable to clear inner data because DOM does not exist! (${elementId})`);
 		}
 	},
 
@@ -327,85 +322,8 @@ const TMS = Object.freeze(Object.seal({
 		if (elId !== null){
 			elId.click();
 		} else {
-			TMS.warn('Unable to clear inner data because DOM does not exist! (' + elementId + ')');
+			TMS.warn(`Unable to clear inner data because DOM does not exist! (${elementId})`);
 		}
-	},
-
-	/*
-		fadeIn
-	*/
-	fadeIn: function(elementId, animationTime){
-
-		const elId = TMS.getElement(elementId), 
-			tagType = {
-				'DIV': 'block',
-				'IMG': 'inline'
-			}
-
-		if (elId !== null){
-
-			var dTime = 1000,
-				dMode = 'block',
-				finalOpacity = 1,
-				eStyles = getComputedStyle(elId);
-
-			if (animationTime !== void 0 && animationTime !== NaN){
-				dTime = Number(animationTime);
-				if (dTime < 0){
-					dTime = 1;
-				}
-			}
-
-			if (tagType[elId.tagType] !== void 0){
-				dMode = tagType[elId.tagType];
-			}
-			if (eStyles.opacity !== '' && parseFloat(eStyles.opacity) !== 0){
-				finalOpacity = eStyles.opacity;
-			}
-
-			TMS.css(elementId, {'display': dMode, 'opacity': 0});
-
-			setTimeout(function(){
-				TMS.css(elementId, {'opacity': finalOpacity, 'transition': 'opacity ' + dTime + 'ms linear 0ms'});
-			}, 10);
-
-			setTimeout(function(){
-				TMS.css(elementId, {'transition': 'none'});
-			}, (dTime + 1));
-
-		} else {
-			TMS.warn('Unable to fade in because DOM does not exist! (' + elementId + ')');
-		}
-	},
-
-	/*
-		fadeOut
-	*/
-	fadeOut: function(elementId, animationTime){
-
-		const elId = TMS.getElement(elementId);
-
-		if (elId !== null){
-
-			var dTime = 1000;
-
-			if (animationTime !== void 0 && animationTime !== NaN){
-				dTime = Number(animationTime);
-				if (dTime < 0){
-					dTime = 1;
-				}
-			}
-
-			TMS.css(elementId, {'opacity': '0', 'transition': 'opacity ' + dTime + 'ms'});
-
-			setTimeout(function(){
-				TMS.css(elementId, {'transition': 'none', 'display': 'none'});
-			}, (dTime + 1));
-
-		} else {
-			TMS.warn('Unable to fade out because DOM does not exist! (' + elementId + ')');
-		}
-
 	},
 
 	/*
@@ -430,7 +348,7 @@ const TMS = Object.freeze(Object.seal({
 			}, delay);
 
 		} else {
-			TMS.warn('Unable to scroll because DOM does not exist! (' + elementId + ')');
+			TMS.warn(`Unable to scroll because DOM does not exist! (${elementId})`);
 		}
 
 	},
@@ -443,7 +361,7 @@ const TMS = Object.freeze(Object.seal({
 		if (elId !== null && elId.innerHTML !== htmlData){
 			document.getElementById(elementId).innerHTML = htmlData;
 		} else {
-			TMS.warn('Unable to set innerHTML because DOM does not exist or it contains the same innerHTML data (' + elementId + ')');
+			TMS.warn(`Unable to set innerHTML because DOM does not exist or it contains the same innerHTML data (${elementId})`);
 		}
 	},
 
@@ -455,7 +373,7 @@ const TMS = Object.freeze(Object.seal({
 		if (elId !== null){
 			document.getElementById(elementId).remove();
 		} else {
-			TMS.warn('Unable to remove DOM because DOM does not exist! (' + elementId + ')');
+			TMS.warn(`Unable to remove DOM because DOM does not exist! (${elementId})`);
 		}
 
 	},
@@ -468,7 +386,7 @@ const TMS = Object.freeze(Object.seal({
 		if (elId !== null){
 			document.getElementById(elementId).blur();
 		} else {
-			TMS.warn('Unable to blur DOM because DOM does not exist! (' + elementId + ')');
+			TMS.warn(`Unable to blur DOM because DOM does not exist! (${elementId})`);
 		}
 	},
 
@@ -490,7 +408,7 @@ const TMS = Object.freeze(Object.seal({
 			return res;
 
 		} else {
-			TMS.warn('Unable to get html collection because DOM does not exist! (' + elementId + ')');
+			TMS.warn(`Unable to get html collection because DOM does not exist! (${elementId})`);
 		}
 
 	},
@@ -506,7 +424,7 @@ const TMS = Object.freeze(Object.seal({
 		if (elId !== null){
 			res = elId.getBoundingClientRect();
 		} else {
-			TMS.warn('Unable to get rect because DOM does not exist! (' + elementId + ')');
+			TMS.warn(`Unable to get rect because DOM does not exist! (${elementId})`);
 		}
 
 		return res;
@@ -546,7 +464,7 @@ const TMS = Object.freeze(Object.seal({
 			}
 
 		} else {
-			TMS.warn('Unable to get coords because DOM does not exist! (' + elementId + ')');
+			TMS.warn(`Unable to get coords because DOM does not exist! (${elementId})`);
 		}
 
 		return res;

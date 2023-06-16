@@ -47,14 +47,6 @@ Example: ```TMS.addClass('myDiv', 'fixWidth');```
 ### TMS.removeClass(domId, className)
 Example: ```TMS.removeClass('myDiv', 'fixWidth');```
 
-### TMS.fadeIn(domId, duration)
-This will fade in an element
-Example: ```TMS.fadeIn('mySassyDiv', 600);```
-
-### TMS.fadeOut(domId, duration)
-This will fade out an element
-Example: ```TMS.fadeOut('mySassyDiv', 600);```
-
 ## External scripts / plugins used on this project:
 - [uglify-js](https://www.npmjs.com/package/uglify-js)
 
