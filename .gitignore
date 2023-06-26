@@ -1,2 +1,2 @@
-node_modules/
-Compile/
+node_modules/*
+Compile/*

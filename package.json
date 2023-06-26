@@ -2,11 +2,12 @@
     "name": "TMS.js",
     "main": "TMS.js",
     "version": "1.0.0",
-    "author": "TemmieHeartz",
+    "author": "TheMitoSan",
     "license": "GPL-2.0-only",
-    "homepage": "https://github.com/temmieheartz/TMS.js",
+    "homepage": "https://github.com/themitosan/TMS.js",
     "description": "This is a simple plugin for managing css and HTML suff without jQuery",
     "scripts": {
+        "compileTs": "tsc",
         "build": "node compile.js"
     },
     "keywords": [
@@ -18,12 +19,13 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/temmieheartz/TMS.js.git"
+        "url": "git+https://github.com/themitosan/TMS.js.git"
     },
     "bugs": {
-        "url": "https://github.com/temmieheartz/TMS.js/issues"
+        "url": "https://github.com/themitosan/TMS.js/issues"
     },
     "devDependencies": {
+        "typescript": "^5.1.3",
         "uglify-js": "^3.17.4"
     }
 }

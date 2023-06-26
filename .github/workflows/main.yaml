@@ -31,6 +31,9 @@ jobs:
 
     - run: npm ci
 
+    - name: Compile TS
+      run: npm run compileTs --if-present
+
     - name: Build
       run: npm run build --if-present
 
