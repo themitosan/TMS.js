@@ -8,18 +8,15 @@
 Created by [themitosan](https://themitosan.github.io/), this is a simple plugin for managing css and HTML stuff ___without jQuery___.
 
 ## Setup
-It's deadly simple!
-- Download TMS.js file
-- Include it on your HTML page as you are used to do!<br>`<script type="text/javascript" src="YourPath/TMS.js"></script>`
-- Smile - you are a great person!
+[TS] - It's deadly simple!
+- Download TMS.ts file and put it among your source files,
+- Use a simple import to carry what you will need.<br>Example: `import * as TMS from './TMS.js';`
+- Smile: you are a great person!
 
 ## Here is a preview of how to use some commands:
 
 ### TMS.css(domId, cssChanges)
 Example: ```TMS.css('myDiv', {'width': '1920px', height: '1080px'});```
-
-### TMS.animate(domId, cssChanges, duration, transition)
-Example: ```TMS.animate('myDiv', {'width': '100px', 'height': '100px'}, 1200, 'cubic-bezier(0, 1.06, 0, 1.02)');```
 
 ### TMS.focus(domId)
 Example: ```TMS.focus('myButton');```

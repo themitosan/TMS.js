@@ -21,6 +21,7 @@ try {
 		mFile = uglifyJs.minify(originalJs).code,
 		final = `${originalTs.slice(0, (originalTs.indexOf('*/') + 2))}\n${mFile}`;
 
+	fs.writeFileSync('./Compile/TMS.ts', originalTs, 'utf8');
 	fs.writeFileSync('./Compile/TMS.js', originalJs, 'utf8');
 	fs.writeFileSync('./Compile/TMS.min.js', final, 'utf8');
 
