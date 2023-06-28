@@ -21,19 +21,6 @@ Example: ```TMS.css('myDiv', {'width': '1920px', height: '1080px'});```
 ### TMS.focus(domId)
 Example: ```TMS.focus('myButton');```
 
-### TMS.disableElement(domId)
-This will disable an element, good for buttons and inputs.
-Example: ```TMS.disableElement('myButton');```
-
-### TMS.enableElement(domId)
-This will enable an element, if disabled by the function above!
-Example: ```TMS.enableElement('myButton');```
-
-### TMS.scrollTop(elementObjects)
-This will scroll a list of containers to a specific state.
-Example: ```TMS.scrollTop({'divA': 0, 'divB': 10, 'divC': 20});```
-`divA` will be scroll to 0, `divB` to 20 and goes on...
-
 ### TMS.scrollCenter(domId)
 This will focus a specific element based on parent height.
 Example: ```TMS.scrollCenter('betrayDiv');```

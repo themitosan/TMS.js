@@ -16,384 +16,268 @@
 	**************************************************************************************
 */
 
-declare var TMS: any;
-
 // Log warning
-var logWarnings = !1;
+var logWarnings = !0;
 
-// Warn if something go wrong
-export function warn(warnText:string){
+/**
+	* Warn if something go wrong
+	* @param warnText text warning
+*/
+function tmsWarn(warnText:string){
 	if (logWarnings === !0){
 		console.warn(`[TMS.js] ${warnText}`);
 	}
 }
 
 /*
-	TMS Functions
+	TMS.js Functions
 */
 
-/*
-	Get element
+/**
+	* Get element
+	* @param elementId DOM ID target
 */
 export function getElement(elementId:string){
-
 	var res:any;
 	res = document.getElementById(elementId);
-
 	if (res === null){
 		res = document.getElementsByTagName(elementId)[0];
 	}
-
 	if (res === void 0){
 		res = null;
 	}
-
 	return res;
-
 }
 
-/*
-	CSS
+/**
+	* Apply element CSS
+	* @param elementId DOM ID target
+	* @param cssChanges Object with new CSS data
 */
 export function css(elementId:string, cssChanges:object){
-
 	var eReason = [],
-		elId = TMS.getElement(elementId);
-
+		elId = getElement(elementId);
 	if (elId === null){
 		eReason.push(`DOM or Tag does not exist! (${elementId})`);
 	}
-
-	// End
 	if (eReason.length === 0){
-
 		Object.keys(cssChanges).forEach(function(cItem:string){
 			elId.style[cItem] = (cssChanges as any)[cItem];
 		});
-
 	} else {
-		TMS.warn(`Unable to apply CSS data!\n${eReason.toString().replace(RegExp(',', 'gi'), '\n')}`);
+		tmsWarn(`Unable to apply CSS data!\n${eReason.toString().replace(RegExp(',', 'gi'), '\n')}`);
 	}
-
 }
 
-/*
-	Focus Element
-	sTimeout = time [ms]
+/**
+	* Focus element
+	* @param elementId DOM ID target
+	* @param sTimeout focus timeout (default: 0)
 */
 export function focus(elementId:string, sTimeout:number = 0){
-
-	const elId = TMS.getElement(elementId);
-
+	const elId = getElement(elementId);
 	if (elId !== null){
-
 		setTimeout(function(){
 			elId.focus();
 		}, sTimeout);
-
 	} else {
-		TMS.warn(`Unable to focus element because it does not exist! (${elementId})`);
+		tmsWarn(`Unable to focus element because it does not exist! (${elementId})`);
 	}
-
 }
 
-/*
-	Disable Element
-*/
-export function disableElement(idList:string[]){
-
-	idList.forEach(function(cItem){
-
-		const elId = TMS.getElement(cItem);
-
-		if (elId !== null){
-
-			elId.disabled = !0;
-			elId.disabled = 'disabled';
-
-			// If is <input>
-			if (elId.type === 'button'){
-				TMS.css(cItem, {'filter': 'grayscale(1) blur(0.8px)', 'cursor': 'not-allowed', 'opacity': '0.6'});
-			}
-
-		} else {
-			TMS.warn(`Unable to disable element because it does not exist! (${cItem})`);
-		}
-
-	});
-
-}
-
-/*
-	Enable Element
-*/
-export function enableElement(elementId:string){
-
-	const elId = TMS.getElement(elementId);
-
-	if (elId !== null){
-
-		elId.disabled = '';
-		elId.disabled = !1;
-
-		if (elId.type === 'button'){
-			TMS.css(elementId, {'filter': 'grayscale(0) blur(0px)', 'cursor': 'pointer', 'opacity': '1'});
-		}
-
-	} else {
-		TMS.warn(`Unable to enable element because it does not exist! (${elementId})`);
-	}
-
-}
-
-/*
-	Get CSS data
-	Returns the attr value from CSS propriety
+/**
+	* Returns the attr value from CSS propriety
+	* @param elementId DOM ID target
+	* @param cssAttrName CSS attribute name
 */
 export function getCssData(elementId:string, cssAttrName:any){
-
 	var result = '',
-		elId = TMS.getElement(elementId);
-
+		elId = getElement(elementId);
 	if (elId !== null){
-
 		result = elId.style[cssAttrName];
-
 		// Get computed style
 		if (result === ''){
 			result = window.getComputedStyle(elId)[cssAttrName];
 		}
-
 		// Get from DOM
 		if (result === void 0){
 			result = elId[cssAttrName];
 		}
-
 	} else {
-		TMS.warn(`Unable to get element because it does not exist! (${elementId})`);
+		tmsWarn(`Unable to get element because it does not exist! (${elementId})`);
 	}
-
 	return result;
 }
 
-/*
-	Scroll top
-	Usage: elementObjects = {HTML_DOM_ID_0: scrollInt, HTML_DOM_ID_1: scrollInt2} and goes on
-*/
-export function scrollTop(elementObjects:string[]){
-	Object.keys(elementObjects).forEach(function(elementId:any){
-
-		const elId = TMS.getElement(elementId);
-
-		if (elId !== null){
-			elId.scrollTop = elementObjects[elementId];
-		} else {
-			TMS.warn(`Unable to scroll element because it does not exist! (${elementId})`);
-		}
-
-	});
-}
-
-/*
-	Append data
+/**
+	* Append data
+	* @param elementId DOM ID target
+	* @param newData HTML (or text) to be inserted
 */
 export function append(elementId:string, newData:string){
-
-	var elId = TMS.getElement(elementId);
-
+	var elId = getElement(elementId);
 	if (elId !== null){
 		elId.insertAdjacentHTML('beforeend', newData);
 	} else {
-		TMS.warn(`Unable to append element data because parent DOM does not exist! (${elementId})`);
+		tmsWarn(`Unable to append element data because parent DOM does not exist! (${elementId})`);
 	}
-
 }
 
-/*
-	Add Class
+/**
+	* Add class
+	* @param elementId DOM ID target
+	* @param className CSS class name to be added
 */
 export function addClass(elementId:string, className:string){
-
-	const elId = TMS.getElement(elementId);
-
+	const elId = getElement(elementId);
 	if (elId !== null){
 		elId.classList.add(className);
 	} else {
-		TMS.warn(`Unable to add class because DOM does not exist! (${elementId})`);
+		tmsWarn(`Unable to add class because DOM does not exist! (${elementId})`);
 	}
 }
 
-/*
-	Remove Class
+/**
+	* Remove class
+	* @param elementId DOM ID target
+	* @param className CSS class name to be removed
 */
 export function removeClass(elementId:string, className:string){
-
-	const elId = TMS.getElement(elementId);
-
+	const elId = getElement(elementId);
 	if (elId !== null){
 		elId.classList.remove(className);
 	} else {
-		TMS.warn(`Unable to remove class because DOM does not exist! (${elementId})`);
+		tmsWarn(`Unable to remove class because DOM does not exist! (${elementId})`);
 	}
-
 }
 
-/*
-	Clear
-	Removes all HTML inside
+/**
+	* Clear innerHTML
+	* @param elementId DOM ID target
 */
 export function clear(elementId:string){
-
-	const elId = TMS.getElement(elementId);
-
+	const elId = getElement(elementId);
 	if (elId !== null){
 		elId.innerHTML = '';
 	} else {
-		TMS.warn(`Unable to clear inner data because DOM does not exist! (${elementId})`);
+		tmsWarn(`Unable to clear inner data because DOM does not exist! (${elementId})`);
 	}
-
 }
 
-/*
-	triggerClick
+/**
+	* Trigger click action
+	* @param elementId DOM ID target
 */
 export function triggerClick(elementId:string){
-
-	const elId = TMS.getElement(elementId);
-
+	const elId = getElement(elementId);
 	if (elId !== null){
 		elId.click();
 	} else {
-		TMS.warn(`Unable to clear inner data because DOM does not exist! (${elementId})`);
+		tmsWarn(`Unable to trigger click action because DOM does not exist! (${elementId})`);
 	}
 
 }
 
-/*
-	scrollCenter
+/**
+	* Scroll view with focus on specific elements
+	* @param elementId DOM ID target
+	* @param timeout timeout before focus (default: 0)
 */
-export function scrollCenter(elementId:string, delay:number = 0){
-
-	const elId = TMS.getElement(elementId);
-
+export function scrollCenter(elementId:string, timeout:number = 0){
+	const elId = getElement(elementId);
 	if (elId !== null){
-
 		var parentDom = elId.parentElement,
 			parentHeight = parentDom.offsetHeight,
 			elHeight = parseFloat(window.getComputedStyle(elId).height.replace('px', ''));
-
 		setTimeout(function(){
 			parentDom.scrollTo(0, (elId.offsetTop - ((parentHeight / 2) - (elHeight / 2))));
-		}, delay);
-
+		}, timeout);
 	} else {
-		TMS.warn(`Unable to scroll because DOM does not exist! (${elementId})`);
+		tmsWarn(`Unable to scroll because DOM does not exist! (${elementId})`);
 	}
-
 }
 
-/*
-	setInnerHtml
+/**
+	* Set data inside DOM
+	* @param elementId DOM ID target
 */
 export function setInnerHtml(elementId:string, htmlData:string){
-
-
-	const elId = TMS.getElement(elementId);
-
+	const elId = getElement(elementId);
 	if (elId !== null && elId.innerHTML !== htmlData){
 		document.getElementById(elementId)!.innerHTML = htmlData;
 	} else {
-		TMS.warn(`Unable to set innerHTML because DOM does not exist or it contains the same innerHTML data (${elementId})`);
+		tmsWarn(`Unable to set innerHTML because DOM does not exist or it contains the same innerHTML data (${elementId})`);
 	}
-
 }
 
-/*
-	Remove HTML DOM
+/**
+	* Remove HTML DOM
+	* @param elementId DOM ID target
 */
 export function removeDOM(elementId:string){
-
-	const elId = TMS.getElement(elementId);
-
+	const elId = getElement(elementId);
 	if (elId !== null){
 		document.getElementById(elementId)!.remove();
 	} else {
-		TMS.warn(`Unable to remove DOM because DOM does not exist! (${elementId})`);
+		tmsWarn(`Unable to remove DOM because DOM does not exist! (${elementId})`);
 	}
-
 }
 
-/*
-	Blur element
+/**
+	* Take out focus from HTML DOM (blur)
+	* @param elementId DOM ID target
 */
 export function blur(elementId:string){
-
-	const elId = TMS.getElement(elementId);
-
+	const elId = getElement(elementId);
 	if (elId !== null){
 		document.getElementById(elementId)!.blur();
 	} else {
-		TMS.warn(`Unable to blur DOM because DOM does not exist! (${elementId})`);
+		tmsWarn(`Unable to blur DOM it does not exist! (${elementId})`);
 	}
-
 }
 
-/*
-	Get HTML child count
+/**
+	* Get number of DOM elements inside
+	* @param elementId DOM ID target
 */
 export function getChildCount(elementId:string){
-
 	var res = 0,
-		elId = TMS.getElement(elementId);
-
+		elId = getElement(elementId);
 	if (elId !== null){
-
 		res = document.getElementById(elementId)!.childElementCount;
 		if (res < 0){
 			res = 0;
 		}
-
 		return res;
-
 	} else {
-		TMS.warn(`Unable to get html collection because DOM does not exist! (${elementId})`);
+		tmsWarn(`Unable to get html collection because DOM does not exist! (${elementId})`);
 	}
-
 }
 
-/*
-	Get HTML element rect
+/**
+	* Get element bounding client rect
+	* @param elementId DOM ID target
 */
 export function getRect(elementId:string){
-
 	var res,
-		elId = TMS.getElement(elementId);
-
+		elId = getElement(elementId);
 	if (elId !== null){
 		res = elId.getBoundingClientRect();
 	} else {
-		TMS.warn(`Unable to get rect because DOM does not exist! (${elementId})`);
+		tmsWarn(`Unable to get rect because DOM does not exist! (${elementId})`);
 	}
-
 	return res;
-
 }
 
-/*
-	Get HTML dom coords.
-	Get element coords based on parent element 
-
-	T:  Y
-	L:  X
-	W:  Width
-	H:  Height
-	WL: X Pos. + It's own width
-	TH: Y Pos. + It's own height
+/**
+	* Get element coords based on parent element 
+	* @param elementId DOM ID target
+	* @returns T: Y, L: X, W: Width, H: Height, WL: X Pos. + It's own width, TH: Y Pos. + It's own height
 */
 export function getCoords(elementId:string){
 
 	var res,
-		elId = TMS.getElement(elementId);
+		elId = getElement(elementId);
 
 	if (elId !== null){
 		
@@ -412,7 +296,7 @@ export function getCoords(elementId:string){
 		}
 
 	} else {
-		TMS.warn(`Unable to get coords because DOM does not exist! (${elementId})`);
+		tmsWarn(`Unable to get coords because DOM does not exist! (${elementId})`);
 	}
 
 	return res;
