@@ -26,6 +26,7 @@ var logWarnings = !0;
 function tmsWarn(warnText:string){
 	if (logWarnings === !0){
 		console.warn(`[TMS.js] ${warnText}`);
+		window.alert(warnText);
 	}
 }
 
@@ -55,17 +56,13 @@ export function getElement(elementId:string){
 	* @param cssChanges Object with new CSS data
 */
 export function css(elementId:string, cssChanges:object){
-	var eReason = [],
-		elId = getElement(elementId);
-	if (elId === null){
-		eReason.push(`DOM or Tag does not exist! (${elementId})`);
-	}
-	if (eReason.length === 0){
+	var elId = getElement(elementId);
+	if (elId !== null){
 		Object.keys(cssChanges).forEach(function(cItem:string){
 			elId.style[cItem] = (cssChanges as any)[cItem];
 		});
 	} else {
-		tmsWarn(`Unable to apply CSS data!\n${eReason.toString().replace(RegExp(',', 'gi'), '\n')}`);
+		tmsWarn(`Unable to apply CSS data because target it does not exist! (${elementId})`);
 	}
 }
 
@@ -165,7 +162,7 @@ export function clear(elementId:string){
 }
 
 /**
-	* Trigger click action
+	* Trigger mouse click action on DOM element
 	* @param elementId DOM ID target
 */
 export function triggerClick(elementId:string){
@@ -280,7 +277,7 @@ export function getCoords(elementId:string){
 		elId = getElement(elementId);
 
 	if (elId !== null){
-		
+
 		var top = elId.offsetTop,
 			left = elId.offsetLeft,
 			width = elId.getBoundingClientRect().width,
@@ -300,7 +297,8 @@ export function getCoords(elementId:string){
 	}
 
 	return res;
+
 }
 
 // Export module
-export * as TMS from './TMS.js';
+export * as TMS from './TMS';
