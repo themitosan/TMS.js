@@ -25,8 +25,9 @@ var logWarnings = !0;
 */
 function tmsWarn(warnText:string){
 	if (logWarnings === !0){
-		console.warn(`[TMS.js] ${warnText}`);
-		window.alert(warnText);
+		const w = `[TMS.js] ${warnText}`;
+		console.warn(w);
+		window.alert(w);
 	}
 }
 
@@ -35,7 +36,7 @@ function tmsWarn(warnText:string){
 */
 
 /**
-	* Get element
+	* Get element DOM
 	* @param elementId DOM ID target
 */
 export function getElement(elementId:string){
@@ -48,6 +49,41 @@ export function getElement(elementId:string){
 		res = null;
 	}
 	return res;
+}
+
+/**
+	* Append custom class
+	* @param name class name
+	* @param css class content
+*/
+export function appendCustomClass(name:string, css:any = {}){
+
+	// Check if can add custom class
+	if (Object.keys(css).length !== 0){
+
+		// Check if document has the class holder
+		if (getElement('TMS_JS_CLASS_LIST') === null){
+			append('body', '<div style="display:none !important;" id="TMS_JS_CLASS_LIST"></div>');
+		}
+
+		// Create custom class
+		var finalHtml = `.${name} { `;
+		Object.keys(css).forEach(function(cKey:string){
+			finalHtml = `${finalHtml}${cKey}: ${css[cKey]}; `;
+		});
+		finalHtml = `${finalHtml.slice(0, (finalHtml.length - 1))} }`;
+
+		// Append class
+		if (getElement(`TMS_JS_CLASS_${name}`) !== null){
+			document.getElementById(`TMS_JS_CLASS_${name}`)!.innerHTML = finalHtml;
+		} else {
+			append('TMS_JS_CLASS_LIST', `<style id="TMS_JS_CLASS_${name}">${finalHtml}</style>`);
+		}
+
+	} else {
+		tmsWarn('Unable to append new css class because no items were provided!');
+	}
+
 }
 
 /**
