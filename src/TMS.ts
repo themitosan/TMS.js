@@ -87,6 +87,16 @@ export function appendCustomClass(name:string, css:any = {}){
 }
 
 /**
+	* Remove custom class
+	* @param name custom class name 
+*/
+export function removeCustomClass(name:string){
+	if (getElement(`TMS_JS_CLASS_${name}`) !== null){
+		removeDOM(`TMS_JS_CLASS_${name}`);
+	}
+}
+
+/**
 	* Apply element CSS
 	* @param elementId DOM ID target
 	* @param cssChanges Object with new CSS data
