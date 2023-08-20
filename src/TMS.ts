@@ -40,8 +40,7 @@ function tmsWarn(warnText:string){
 	* @param elementId DOM ID target
 */
 export function getElement(elementId:string){
-	var res:any;
-	res = document.getElementById(elementId);
+	var res:any = document.getElementById(elementId);
 	if (res === null){
 		res = document.getElementsByTagName(elementId)[0];
 	}
@@ -134,22 +133,34 @@ export function focus(elementId:string, sTimeout:number = 0){
 	* @param cssAttrName CSS attribute name
 */
 export function getCssData(elementId:string, cssAttrName:any){
+
+	// Variables
 	var result = '',
 		elId = getElement(elementId);
+
+	// Check if DOM exists
 	if (elId !== null){
+
+		// Get style
 		result = elId.style[cssAttrName];
+	
 		// Get computed style
 		if (result === ''){
 			result = window.getComputedStyle(elId)[cssAttrName];
 		}
+	
 		// Get from DOM
 		if (result === void 0){
 			result = elId[cssAttrName];
 		}
+
 	} else {
 		tmsWarn(`Unable to get element because it does not exist! (${elementId})`);
 	}
+
+	// Return data
 	return result;
+
 }
 
 /**
@@ -247,7 +258,7 @@ export function scrollCenter(elementId:string, timeout:number = 0){
 export function setInnerHtml(elementId:string, htmlData:string){
 	const elId = getElement(elementId);
 	if (elId !== null && elId.innerHTML !== htmlData){
-		document.getElementById(elementId)!.innerHTML = htmlData;
+		elId.innerHTML = htmlData;
 	} else {
 		tmsWarn(`Unable to set innerHTML because DOM does not exist or it contains the same innerHTML data (${elementId})`);
 	}
@@ -260,7 +271,7 @@ export function setInnerHtml(elementId:string, htmlData:string){
 export function removeDOM(elementId:string){
 	const elId = getElement(elementId);
 	if (elId !== null){
-		document.getElementById(elementId)!.remove();
+		elId.remove();
 	} else {
 		tmsWarn(`Unable to remove DOM because DOM does not exist! (${elementId})`);
 	}
@@ -273,7 +284,7 @@ export function removeDOM(elementId:string){
 export function blur(elementId:string){
 	const elId = getElement(elementId);
 	if (elId !== null){
-		document.getElementById(elementId)!.blur();
+		elId.blur();
 	} else {
 		tmsWarn(`Unable to blur DOM it does not exist! (${elementId})`);
 	}
@@ -287,7 +298,7 @@ export function getChildCount(elementId:string){
 	var res = 0,
 		elId = getElement(elementId);
 	if (elId !== null){
-		res = document.getElementById(elementId)!.childElementCount;
+		res = elId.childElementCount;
 		if (res < 0){
 			res = 0;
 		}
@@ -326,6 +337,7 @@ export function getCoords(elementId:string){
 	// Check if element exists
 	if (elId !== null){
 
+		// Get coords data
 		var top = elId.offsetTop,
 			left = elId.offsetLeft,
 			width = elId.getBoundingClientRect().width,
@@ -337,8 +349,8 @@ export function getCoords(elementId:string){
 			L: Number(left),
 			W: Number(width),
 			H: Number(height),
+			TH: parseFloat(top + height),
 			WL: parseFloat(width + left),
-			TH: parseFloat(top + height)
 		}
 
 	} else {
