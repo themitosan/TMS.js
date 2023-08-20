@@ -315,13 +315,15 @@ export function getRect(elementId:string){
 /**
 	* Get element coords based on parent element 
 	* @param elementId DOM ID target
-	* @returns T: Y, L: X, W: Width, H: Height, WL: X Pos. + It's own width, TH: Y Pos. + It's own height
+	* @returns Object - T: Y, L: X, W: Width, H: Height, WL: X Pos. + It's own width, TH: Y Pos. + It's own height
 */
 export function getCoords(elementId:string){
 
-	var res,
+	// Variables
+	var res:any = {},
 		elId = getElement(elementId);
 
+	// Check if element exists
 	if (elId !== null){
 
 		var top = elId.offsetTop,
@@ -329,11 +331,12 @@ export function getCoords(elementId:string){
 			width = elId.getBoundingClientRect().width,
 			height = elId.getBoundingClientRect().height;
 
+		// Set res data
 		res = {
-			T: top,
-			L: left,
-			W: width,
-			H: height,
+			T: Number(top),
+			L: Number(left),
+			W: Number(width),
+			H: Number(height),
 			WL: parseFloat(width + left),
 			TH: parseFloat(top + height)
 		}
@@ -342,6 +345,7 @@ export function getCoords(elementId:string){
 		tmsWarn(`Unable to get coords because DOM does not exist! (${elementId})`);
 	}
 
+	// Return data
 	return res;
 
 }
