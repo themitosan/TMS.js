@@ -16,6 +16,24 @@
 	**************************************************************************************
 */
 
+/*
+	Intarfaces
+*/
+
+// getCoords output
+interface getCoordsData {
+	T:number,
+	L:number,
+	W:number,
+	H:number,
+	TH:number,
+	WL:number
+}
+
+/*
+	Settings + debug functions
+*/
+
 // Log warning
 var logWarnings = !0;
 
@@ -328,11 +346,18 @@ export function getRect(elementId:string){
 	* @param elementId DOM ID target
 	* @returns Object - T: Y, L: X, W: Width, H: Height, WL: X Pos. + It's own width, TH: Y Pos. + It's own height
 */
-export function getCoords(elementId:string){
+export function getCoords(elementId:string):getCoordsData {
 
 	// Variables
-	var res:any = {},
-		elId = getElement(elementId);
+	var elId = getElement(elementId),
+		res:getCoordsData = {
+			T: 0,
+			L: 0,
+			W: 0,
+			H: 0,
+			TH: 0,
+			WL: 0
+		};
 
 	// Check if element exists
 	if (elId !== null){
