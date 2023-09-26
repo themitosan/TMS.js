@@ -22,12 +22,12 @@
 
 // getCoords output
 interface getCoordsData {
-	T:number,
-	L:number,
-	W:number,
-	H:number,
-	TH:number,
-	WL:number
+	T: number,
+	L: number,
+	W: number,
+	H: number,
+	TH: number,
+	WL: number
 }
 
 /*
@@ -56,8 +56,9 @@ function tmsWarn(warnText:string){
 /**
 	* Get element DOM
 	* @param elementId DOM ID target
+	* @returns HTML DOM elemenet or null
 */
-export function getElement(elementId:string){
+export function getElement(elementId:string):any {
 	var res:any = document.getElementById(elementId);
 	if (res === null){
 		res = document.getElementsByTagName(elementId)[0];
@@ -98,7 +99,7 @@ export function appendCustomClass(name:string, css:any = {}){
 		}
 
 	} else {
-		tmsWarn('Unable to append new css class because no items were provided!');
+		tmsWarn('Unable to append new CSS class because no items were provided!');
 	}
 
 }
@@ -149,8 +150,9 @@ export function focus(elementId:string, sTimeout:number = 0){
 	* Returns the attr value from CSS propriety
 	* @param elementId DOM ID target
 	* @param cssAttrName CSS attribute name
+	* @returns String with css data or undentified
 */
-export function getCssData(elementId:string, cssAttrName:any){
+export function getCssData(elementId:string, cssAttrName:any):string | undefined {
 
 	// Variables
 	var result = '',
@@ -173,7 +175,7 @@ export function getCssData(elementId:string, cssAttrName:any){
 		}
 
 	} else {
-		tmsWarn(`Unable to get element because it does not exist! (${elementId})`);
+		tmsWarn(`Unable to get element data because it does not exist! (${elementId})`);
 	}
 
 	// Return data
@@ -224,19 +226,6 @@ export function removeClass(elementId:string, className:string){
 }
 
 /**
-	* Clear innerHTML
-	* @param elementId DOM ID target
-*/
-export function clear(elementId:string){
-	const elId = getElement(elementId);
-	if (elId !== null){
-		elId.innerHTML = '';
-	} else {
-		tmsWarn(`Unable to clear inner data because DOM does not exist! (${elementId})`);
-	}
-}
-
-/**
 	* Trigger mouse click action on DOM element
 	* @param elementId DOM ID target
 */
@@ -272,6 +261,7 @@ export function scrollCenter(elementId:string, timeout:number = 0){
 /**
 	* Set data inside DOM
 	* @param elementId DOM ID target
+	* @param htmlData HTML string to be inserted
 */
 export function setInnerHtml(elementId:string, htmlData:string){
 	const elId = getElement(elementId);
@@ -311,8 +301,9 @@ export function blur(elementId:string){
 /**
 	* Get number of DOM elements inside
 	* @param elementId DOM ID target
+	* @returns Number of elements inside or undentified
 */
-export function getChildCount(elementId:string){
+export function getChildCount(elementId:string):number | undefined {
 	var res = 0,
 		elId = getElement(elementId);
 	if (elId !== null){
@@ -322,7 +313,7 @@ export function getChildCount(elementId:string){
 		}
 		return res;
 	} else {
-		tmsWarn(`Unable to get html collection because DOM does not exist! (${elementId})`);
+		tmsWarn(`Unable to get HTML collection because DOM does not exist! (${elementId})`);
 	}
 }
 
