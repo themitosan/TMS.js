@@ -33,20 +33,6 @@ Example: ```TMS.removeClass('myDiv', 'fixWidth');```
 
 **INFO**: You can also _provide other contexts_ for all available functions. This allows you to manipulate data from another opened windows (like `nw.js` Window.open function).
 
-Example: <code>
-// Import module and create context variable
-import * as TMS from './TMS';
-var context;
-
-// Open window
-nw.Window.open('project/somePage.html', {}, function(data:any){
-	context = data.window.document;
-});
-
-// Set div CSS data from new opened window by providing context
-TMS.css('someDivInsideNewWindow', { 'width': '100%', height: '20px' }, context);
-</code>
-
 ## External scripts / plugins used on this project:
 - [uglify-js](https://www.npmjs.com/package/uglify-js)
 
