@@ -32,7 +32,7 @@ Example: ```TMS.addClass('myDiv', 'fixWidth');```
 Example: ```TMS.removeClass('myDiv', 'fixWidth');```
 
 ## Context
-You can also provide _other contexts_ for all available functions. This allows you to manipulate data from another opened windows (like `nwjs` `nw.Window.open` function).
+You can also provide _other contexts_ for all available functions. This allows you to manipulate data from other windows (like `nwjs` `nw.Window.open` function).
 
 Example: 
 ```ts
