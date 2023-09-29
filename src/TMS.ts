@@ -83,7 +83,7 @@ export function appendCustomClass(name:string, css:any = {}, context:object = do
 
 		// Check if document has the class holder
 		if (getElement('TMS_JS_CLASS_LIST', context) === null){
-			append('body', '<div style="display:none !important;" id="TMS_JS_CLASS_LIST"></div>');
+			append('body', '<div style="display:none !important;" id="TMS_JS_CLASS_LIST"></div>', context);
 		}
 
 		// Create custom class
@@ -97,7 +97,7 @@ export function appendCustomClass(name:string, css:any = {}, context:object = do
 		if (getElement(`TMS_JS_CLASS_${name}`, context) !== null){
 			getElement(`TMS_JS_CLASS_${name}`, context).innerHTML = finalHtml;
 		} else {
-			append('TMS_JS_CLASS_LIST', `<style id="TMS_JS_CLASS_${name}">${finalHtml}</style>`);
+			append('TMS_JS_CLASS_LIST', `<style id="TMS_JS_CLASS_${name}">${finalHtml}</style>`, context);
 		}
 
 	} else {
@@ -350,9 +350,9 @@ export function getChildCount(elementId:string, context:object = document):numbe
 	* @param elementId DOM ID target
 	* @param context window context. if not using external windows (like nwjs nw.Window.open), leave it alone.
 */
-export function getRect(elementId:string, context:object = document){
+export function getRect(elementId:string, context:object = document):any {
 
-	var res,
+	var res:any,
 		elId = getElement(elementId, context);
 
 	if (elId !== null){
@@ -409,6 +409,26 @@ export function getCoords(elementId:string, context:object = document):getCoords
 
 	// Return data
 	return res;
+
+}
+
+/**
+	* Set element disable status
+	* @param elementId DOM id target
+	* @param status disabled status
+	* @param context window context. if not using external windows (like nwjs nw.Window.open), leave it alone.
+*/
+export function setDisabledStatus(elemenetId:string, status:boolean, context:object = document){
+
+	// Get element data
+	const elId = getElement(elemenetId, context);
+	
+	// Check if element exists
+	if (elId !== null){
+		elId.disabled = status;
+	} else {
+		tmsWarn(`Unable to set disabled status because DOM does not exist! (${elemenetId})`);
+	}
 
 }
 
