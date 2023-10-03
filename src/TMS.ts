@@ -237,12 +237,13 @@ export function removeClass(elementId:string, className:string, context:object =
 /**
 	* Trigger mouse click action on DOM element
 	* @param elementId DOM ID target
+	* @param timeout delay before triggering trick in ms [default = 0]
 	* @param context window context. if not using external windows (like nwjs nw.Window.open), leave it alone.
 */
-export function triggerClick(elementId:string, context:object = document){
+export function triggerClick(elementId:string, timeout:number = 0, context:object = document){
 	const elId = getElement(elementId, context);
 	if (elId !== null){
-		elId.click();
+		setTimeout(function(){ elId.click(); }, timeout);
 	} else {
 		tmsWarn(`Unable to trigger click action because DOM does not exist! (${elementId})`);
 	}
