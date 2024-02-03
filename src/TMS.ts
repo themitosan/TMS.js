@@ -160,17 +160,13 @@ export function focus(elementId:string, sTimeout:number = 0, context:object = do
 */
 export function getCssData(elementId:string, cssAttrName:any, context:object = document):string | undefined {
 
-	// Variables
+	// Create variables and check if dom exists
 	var res = '',
 		elId = getElement(elementId, context);
-
-	// Check if DOM exists
 	if (elId !== null){
 
-		// Get style
+		// Get style and computed style
 		res = elId.style[cssAttrName];
-	
-		// Get computed style
 		if (res === ''){
 			res = window.getComputedStyle(elId)[cssAttrName];
 		}
@@ -257,12 +253,10 @@ export function triggerClick(elementId:string, timeout:number = 0, context:objec
 */
 export function scrollCenter(elementId:string, timeout:number = 0, context:object = document){
 
+	// Get element and check if it exists
 	const elId = getElement(elementId, context);
-
-	// Check if element exists
 	if (elId !== null){
 
-		// Set variables
 		const
 			parentDom = elId.parentElement,
 			parentHeight = parentDom.offsetHeight,
@@ -421,10 +415,8 @@ export function getCoords(elementId:string, context:object = document):getCoords
 */
 export function setDisabledStatus(elemenetId:string, status:boolean, context:object = document){
 
-	// Get element data
+	// Get element data and check if element exists
 	const elId = getElement(elemenetId, context);
-	
-	// Check if element exists
 	if (elId !== null){
 		elId.disabled = status;
 	} else {
