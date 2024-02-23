@@ -10,8 +10,8 @@
 		Original source / motivation:
 		http://youmightnotneedjquery.com/
 
-		Original creator: TemmieHeartz.
-		Thank you Temmie, you always will live on my heartz. <3
+		Original creator: TemmieHeartz
+		Thank you Temmie, you always will be alive on my heartz! <3
 
 	**************************************************************************************
 */
@@ -22,20 +22,20 @@
 
 // getCoords output
 interface getCoordsData {
-	T: number,
-	L: number,
-	W: number,
-	H: number,
-	TH: number,
-	WL: number
+	T:number,
+	L:number,
+	W:number,
+	H:number,
+	TH:number,
+	WL:number
 }
 
 /*
 	Settings + debug functions
 */
 
-// Log warning
-const logWarnings = !0;
+// Log warnings
+const logWarnings:boolean = !0;
 
 /**
 	* Warn if something go wrong
@@ -87,7 +87,7 @@ export function appendCustomClass(name:string, css:any = {}, context:object = do
 		}
 
 		// Create custom class
-		var finalHtml = `.${name} { `;
+		var finalHtml:string = `.${name} { `;
 		Object.keys(css).forEach(function(cKey:string){
 			finalHtml = `${finalHtml}${cKey}: ${css[cKey]}; `;
 		});
@@ -160,9 +160,11 @@ export function focus(elementId:string, sTimeout:number = 0, context:object = do
 */
 export function getCssData(elementId:string, cssAttrName:any, context:object = document):string | undefined {
 
-	// Create variables and check if dom exists
-	var res = '',
+	// Create main variable
+	var res:string = '',
 		elId = getElement(elementId, context);
+
+	// Check if dom exists
 	if (elId !== null){
 
 		// Get style and computed style
@@ -192,12 +194,15 @@ export function getCssData(elementId:string, cssAttrName:any, context:object = d
 	* @param context window context. if not using external windows (like nwjs nw.Window.open), leave it alone.
 */
 export function append(elementId:string, newData:string, context:object = document){
+
+	// Create var and check if dom exists
 	var elId = getElement(elementId, context);
 	if (elId !== null){
 		elId.insertAdjacentHTML('beforeend', newData);
 	} else {
 		tmsWarn(`Unable to append element data because parent DOM does not exist! (${elementId})`);
 	}
+
 }
 
 /**
@@ -207,12 +212,15 @@ export function append(elementId:string, newData:string, context:object = docume
 	* @param context window context. if not using external windows (like nwjs nw.Window.open), leave it alone.
 */
 export function addClass(elementId:string, className:string, context:object = document){
+
+	// Create var and check if dom exists
 	const elId = getElement(elementId, context);
 	if (elId !== null){
 		elId.classList.add(className);
 	} else {
 		tmsWarn(`Unable to add class because DOM does not exist! (${elementId})`);
 	}
+
 }
 
 /**
@@ -222,12 +230,15 @@ export function addClass(elementId:string, className:string, context:object = do
 	* @param context window context. if not using external windows (like nwjs nw.Window.open), leave it alone.
 */
 export function removeClass(elementId:string, className:string, context:object = document){
+
+	// Create var and check if dom exists
 	const elId = getElement(elementId, context);
 	if (elId !== null){
 		elId.classList.remove(className);
 	} else {
 		tmsWarn(`Unable to remove class because DOM does not exist! (${elementId})`);
 	}
+
 }
 
 /**
@@ -237,12 +248,15 @@ export function removeClass(elementId:string, className:string, context:object =
 	* @param context window context. if not using external windows (like nwjs nw.Window.open), leave it alone.
 */
 export function triggerClick(elementId:string, timeout:number = 0, context:object = document){
+
+	// Create var and check if dom exists
 	const elId = getElement(elementId, context);
 	if (elId !== null){
 		setTimeout(function(){ elId.click(); }, timeout);
 	} else {
 		tmsWarn(`Unable to trigger click action because DOM does not exist! (${elementId})`);
 	}
+
 }
 
 /**
@@ -279,12 +293,15 @@ export function scrollCenter(elementId:string, timeout:number = 0, context:objec
 	* @param context window context. if not using external windows (like nwjs nw.Window.open), leave it alone.
 */
 export function setInnerHtml(elementId:string, htmlData:string, context:object = document){
+
+	// Create var and check if dom exists
 	const elId = getElement(elementId, context);
 	if (elId !== null && elId.innerHTML !== htmlData){
 		elId.innerHTML = htmlData;
 	} else {
 		tmsWarn(`Unable to set innerHTML because DOM does not exist or it contains the same innerHTML data (${elementId})`);
 	}
+
 }
 
 /**
@@ -293,12 +310,15 @@ export function setInnerHtml(elementId:string, htmlData:string, context:object =
 	* @param context window context. if not using external windows (like nwjs nw.Window.open), leave it alone.
 */
 export function removeDOM(elementId:string, context:object = document){
+
+	// Create var and check if dom exists
 	const elId = getElement(elementId, context);
 	if (elId !== null){
 		elId.remove();
 	} else {
 		tmsWarn(`Unable to remove DOM because DOM does not exist! (${elementId})`);
 	}
+
 }
 
 /**
@@ -307,12 +327,15 @@ export function removeDOM(elementId:string, context:object = document){
 	* @param context window context. if not using external windows (like nwjs nw.Window.open), leave it alone.
 */
 export function blur(elementId:string, context:object = document){
+
+	// Create var and check if dom exists
 	const elId = getElement(elementId, context);
 	if (elId !== null){
 		elId.blur();
 	} else {
 		tmsWarn(`Unable to blur DOM it does not exist! (${elementId})`);
 	}
+
 }
 
 /**
@@ -323,16 +346,20 @@ export function blur(elementId:string, context:object = document){
 */
 export function getChildCount(elementId:string, context:object = document):number | undefined {
 
-	var res = 0,
+	// Create vars
+	var res:number = 0,
 		elId = getElement(elementId, context);
 
+	// Check if dom exists
 	if (elId !== null){
 
+		// Get child number and prevent it being negative
 		res = elId.childElementCount;
 		if (res < 0){
 			res = 0;
 		}
 
+		// Return count
 		return res;
 
 	} else {
@@ -347,15 +374,18 @@ export function getChildCount(elementId:string, context:object = document):numbe
 */
 export function getRect(elementId:string, context:object = document):any {
 
+	// Create vars
 	var res:any,
 		elId = getElement(elementId, context);
 
+	// Check if dom exists
 	if (elId !== null){
 		res = elId.getBoundingClientRect();
 	} else {
 		tmsWarn(`Unable to get rect because DOM does not exist! (${elementId})`);
 	}
 
+	// Return data
 	return res;
 
 }
