@@ -9,7 +9,7 @@ Created by [TheMitoSan](https://themitosan.github.io/), this is a simple plugin 
 
 ## Setup
 [TS] - It's deadly simple!
-- Download TMS.ts file and put it among your source files,
+- Download TMS.ts file and put it among your source files
 - Use a simple import to carry what you will need.<br>Example: `import * as TMS from './TMS.js';`
 - Smile: you are a great person!
 
