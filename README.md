@@ -16,29 +16,53 @@ Created by [TheMitoSan](https://themitosan.github.io/), this is a simple plugin 
 ## Here is a preview of how to use some commands:
 
 ### TMS.css(domId, cssChanges)
-Example: ```TMS.css('myDiv', {'width': '1920px', height: '1080px'});```
+Apply CSS style on a DOM Element.
+```
+// Example
+TMS.css('myDiv', {'width': '1920px', height: '1080px'});
+```
 
 ### TMS.focus(domId)
-Example: ```TMS.focus('myButton');```
+Gives focus to a specific DOM Element.
+```
+// Example
+TMS.focus('myButton');
+```
 
 ### TMS.scrollCenter(domId)
-This will focus a specific element based on parent height.
-Example: ```TMS.scrollCenter('betrayDiv');```
+This function will focus a DOM Element inside a scrollable list, making it centered.
+```
+// Example
+TMS.scrollCenter('betrayDiv');
+```
 
 ### TMS.addClass(domId, className)
-Example: ```TMS.addClass('myDiv', 'fixWidth');```
+This will append a specified CSS class to a DOM Element.
+```
+// Example
+TMS.addClass('myDiv', 'fixWidth');
+```
 
 ### TMS.removeClass(domId, className)
-Example: ```TMS.removeClass('myDiv', 'fixWidth');```
+This will remove some specific class from a DOM Element.
+```
+// Example
+TMS.removeClass('myDiv', 'fixWidth');
+```
 
 ## Context
-You can also provide _other contexts_ for all available functions. This allows you to manipulate data from other windows (like `nwjs` `nw.Window.open` function).
+You can also provide _other contexts_ for all available functions. This allows you to manipulate data from other windows (like [nwjs](https://nwjs.io/) `nw.Window.open` function).
 
 Example: 
 ```ts
+
+/*
+	Using TMS.js context with TS
+*/
+
 // Import module and create context variable
 import * as TMS from './TMS';
-var context;
+var context:Document;
 
 // Open window
 nw.Window.open('project/somePage.html', {}, function(data:any){
