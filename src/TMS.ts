@@ -158,7 +158,7 @@ export function focus(elementId:string, sTimeout:number = 0, context:object = do
 	* @returns String with css data or undentified
 	* @param context window context. if not using external windows (like nwjs nw.Window.open), leave it alone.
 */
-export function getCssData(elementId:string, cssAttrName:any, context:object = document):string | undefined {
+export function getCssStyle(elementId:string, cssAttrName:any, context:object = document):string | undefined {
 
 	// Create main variable
 	var res:string = '',
@@ -186,6 +186,37 @@ export function getCssData(elementId:string, cssAttrName:any, context:object = d
 	return res;
 
 }
+
+/**
+	* Get CSS data
+	* @param elementId DOM target
+	* @returns CSS args list or empty object if elementId doesn't exists
+*/
+export function getCssData(elementId:string, context:object = document):CSSStyleDeclaration {
+
+	// Declare main vars
+	var res:CSSStyleDeclaration | any = {},
+		elId = getElement(elementId, context);
+
+	// Check if dom target exists
+	if (elId !== null){
+
+		// Process all styles and check if current isn't empty
+		Object.keys(window.getComputedStyle(elId)).forEach(function(cStyle:any){
+			if (window.getComputedStyle(elId)[cStyle] !== '' && isNaN(Number(cStyle)) === !0){
+				res[cStyle] = window.getComputedStyle(elId)[cStyle];
+			}
+		});
+
+	} else {
+		tmsWarn(`Unable to get element data because it does not exist! (${elementId})`);
+	}
+
+	// Return data
+	return res;
+
+}
+
 
 /**
 	* Append data
