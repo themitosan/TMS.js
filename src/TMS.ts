@@ -2,7 +2,7 @@
 	**************************************************************************************
 
 		TMS.js
-		Created by TheMitoSan (@TheMitoSan)
+		Created by JulianaHeartz (@themitosan)
 		https://github.com/themitosan/TMS.js
 
 		This file exists because I don't want to deal with jQuery anymore!
