@@ -247,7 +247,12 @@ export function addClass(elementId:string, className:string, context:object = do
 	// Create var and check if dom exists
 	const elId = getElement(elementId, context);
 	if (elId !== null){
-		elId.classList.add(className);
+
+		// Check if class exists on current DOM
+		if (Array.from(elId.classList).indexOf(className) === -1){
+			elId.classList.add(className);
+		}
+
 	} else {
 		tmsWarn(`Unable to add class because DOM does not exist! (${elementId})`);
 	}
