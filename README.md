@@ -72,4 +72,4 @@ TMS.css('someDivInsideNewWindow', { 'width': '100%', height: '20px' }, context);
 - [uglify-js](https://www.npmjs.com/package/uglify-js)
 
 ## Many Thanks To:
-- [You might not need jQuery](http://youmightnotneedjquery.com/)
+- [You might not need jQuery](http://youmightnotneedjquery.com)
