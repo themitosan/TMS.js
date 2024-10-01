@@ -17,36 +17,31 @@ Created by [TheMitoSan](https://themitosan.github.io/), this is a simple plugin 
 
 ### TMS.css(domId, cssChanges)
 Apply CSS style on a DOM Element.
-```
-// Example
+```ts
 TMS.css('myDiv', {'width': '1920px', height: '1080px'});
 ```
 
 ### TMS.focus(domId)
 Gives focus to a specific DOM Element.
-```
-// Example
+```ts
 TMS.focus('myButton');
 ```
 
 ### TMS.scrollCenter(domId)
 This function will focus a DOM Element inside a scrollable list, making it centered.
-```
-// Example
+```ts
 TMS.scrollCenter('betrayDiv');
 ```
 
 ### TMS.addClass(domId, className)
 This will append a specified CSS class to a DOM Element.
-```
-// Example
+```ts
 TMS.addClass('myDiv', 'fixWidth');
 ```
 
 ### TMS.removeClass(domId, className)
 This will remove some specific class from a DOM Element.
-```
-// Example
+```ts
 TMS.removeClass('myDiv', 'fixWidth');
 ```
 
