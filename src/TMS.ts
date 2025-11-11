@@ -61,12 +61,8 @@ function tmsWarn(warnText:string){
 */
 export function getElement(elementId:string, context:any = document):any {
 	var res:any = context.getElementById(elementId);
-	if (res === null){
-		res = context.getElementsByTagName(elementId)[0];
-	}
-	if (res === void 0){
-		res = null;
-	}
+	if (res === null) res = context.getElementsByTagName(elementId)[0];
+	if (res === void 0) res = null;
 	return res;
 }
 
@@ -82,9 +78,7 @@ export function appendCustomClass(name:string, css:any = {}, context:object = do
 	if (Object.keys(css).length !== 0){
 
 		// Check if document has the class holder
-		if (getElement('TMS_JS_CLASS_LIST', context) === null){
-			append('body', '<div style="display:none !important;" id="TMS_JS_CLASS_LIST"></div>', context);
-		}
+		if (getElement('TMS_JS_CLASS_LIST', context) === null) append('body', '<div style="display:none !important;" id="TMS_JS_CLASS_LIST"></div>', context);
 
 		// Create custom class
 		var finalHtml:string = `.${name} { `;
@@ -112,9 +106,7 @@ export function appendCustomClass(name:string, css:any = {}, context:object = do
 	* @param context window context. if not using external windows (like nwjs nw.Window.open), leave it alone.
 */
 export function removeCustomClass(name:string, context:object = document){
-	if (getElement(`TMS_JS_CLASS_${name}`, context) !== null){
-		removeDOM(`TMS_JS_CLASS_${name}`, context);
-	}
+	if (getElement(`TMS_JS_CLASS_${name}`, context) !== null) removeDOM(`TMS_JS_CLASS_${name}`, context);
 }
 
 /**
@@ -143,9 +135,7 @@ export function css(elementId:string, cssChanges:object, context:object = docume
 export function focus(elementId:string, sTimeout:number = 0, context:object = document){
 	const elId = getElement(elementId, context);
 	if (elId !== null){
-		setTimeout(function(){
-			elId.focus();
-		}, sTimeout);
+		setTimeout(elId.focus, sTimeout);
 	} else {
 		tmsWarn(`Unable to focus element because it does not exist! (${elementId})`);
 	}
@@ -169,14 +159,10 @@ export function getCssStyle(elementId:string, cssAttrName:any, context:object = 
 
 		// Get style and computed style
 		res = elId.style[cssAttrName];
-		if (res === ''){
-			res = window.getComputedStyle(elId)[cssAttrName];
-		}
-	
+		if (res === '') res = window.getComputedStyle(elId)[cssAttrName];
+
 		// Get from DOM
-		if (res === void 0){
-			res = elId[cssAttrName];
-		}
+		if (res === void 0) res = elId[cssAttrName];
 
 	} else {
 		tmsWarn(`Unable to get element data because it does not exist! (${elementId})`);
@@ -203,9 +189,7 @@ export function getCssData(elementId:string, context:object = document):CSSStyle
 
 		// Process all styles and check if current isn't empty
 		Object.keys(window.getComputedStyle(elId)).forEach(function(cStyle:any){
-			if (window.getComputedStyle(elId)[cStyle] !== '' && isNaN(Number(cStyle)) === !0){
-				res[cStyle] = window.getComputedStyle(elId)[cStyle];
-			}
+			if (window.getComputedStyle(elId)[cStyle] !== '' && isNaN(Number(cStyle)) === !0) res[cStyle] = window.getComputedStyle(elId)[cStyle];
 		});
 
 	} else {
@@ -249,9 +233,7 @@ export function addClass(elementId:string, className:string, context:object = do
 	if (elId !== null){
 
 		// Check if class exists on current DOM
-		if (Array.from(elId.classList).indexOf(className) === -1){
-			elId.classList.add(className);
-		}
+		if (Array.from(elId.classList).indexOf(className) === -1) elId.classList.add(className);
 
 	} else {
 		tmsWarn(`Unable to add class because DOM does not exist! (${elementId})`);
@@ -391,9 +373,7 @@ export function getChildCount(elementId:string, context:object = document):numbe
 
 		// Get child number and prevent it being negative
 		res = elId.childElementCount;
-		if (res < 0){
-			res = 0;
-		}
+		if (res < 0) res = 0;
 
 		// Return count
 		return res;
